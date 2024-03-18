@@ -34,8 +34,8 @@ def register():
 		country = request.form['country'] 
 		phone = request.form['phone'] 
 		
-		if email in emails:
-			pass
+		# if email in emails:
+		# 	pass
 
 		with sqlite3.connect("database.db") as users: 
 			cursor = users.cursor() 
