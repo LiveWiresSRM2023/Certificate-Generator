@@ -1,0 +1,31 @@
+donload page
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>certificate </title> 
+	</head> 
+	<style> 
+		table, th, td { 
+		border:1px solid black; 
+		} 
+		</style> 
+	<body> 
+		<table style="width:100%"> 
+			<tr> 
+			<th>Name</th> 
+			<th>Email</th> 
+			<th>Event Name</th> 
+			<th>Link</th> 
+			</tr> 
+			{%for participant in data%} 
+			<tr> 
+				<td>{{participant[0]}}</td> 
+				<td>{{participant[1]}}</td> 
+				<td>{{participant[2]}}</td> 
+				<td>{{participant[3]}}</td> 
+				
+				</tr> 
+			{%endfor%} 
+		</table>		 
+	</body> 
+</html> 
