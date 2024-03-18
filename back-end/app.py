@@ -4,13 +4,6 @@
 
 from flask import Flask, render_template, request 
 import sqlite3 
-# import os.path
-
-# from google.auth.transport.requests import Request
-# from google.oauth2.credentials import Credentials
-# from google_auth_oauthlib.flow import InstalledAppFlow
-# from googleapiclient.discovery import build
-# from googleapiclient.errors import HttpError
 
 
 app = Flask(__name__) 
@@ -36,10 +29,13 @@ connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, password TEXT)')
 def register(): 
 	if request.method == 'POST': 
 		name = request.form['name'] 
-		email = request.form['email'] 
+		email= request.form['email'] 
 		city = request.form['city'] 
 		country = request.form['country'] 
 		phone = request.form['phone'] 
+		
+		if email in emails:
+			pass
 
 		with sqlite3.connect("database.db") as users: 
 			cursor = users.cursor() 
