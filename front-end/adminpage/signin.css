@@ -34,20 +34,8 @@
 
 
 
-.input-user input{
-    width: 100%;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px red;
-    margin: 8px 0px;
-    border-radius: 3px;
-    
 
-}
-.input-user i{
-    margin-right: 300px;
-    color: black;
-}
+
 
 .input-email input{
     width: 100%;
@@ -82,17 +70,35 @@
 .button-field{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     
 }
 
 .button-field button{
-    width: 40%;
-    height: 30px;
-    margin: 10px 0px;
-    box-sizing: border-box;
-    border-radius:6px ;
-    color: blueviolet;
+    flex-basis: 48%;
+    background-color: #3c00a0;
+    color: white;
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transform: background 1s ;
+    
 
+
+}
+.input-group{
+    height: 280px;
+}
+
+/* .button-field button.signIn{
+    color:whitesmoke;
+    background: #555;
+
+} */
+
+.fpassword{
+    color: aqua;
 
 }
