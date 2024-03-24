@@ -69,6 +69,7 @@ def participants():
 	cursor = connect.cursor() 
 	cursor.execute('SELECT * FROM PARTICIPANTS1') 
 	data = cursor.fetchall() 
+	print(data)
 	return render_template("Registration_details.html", data=data) 
 
 

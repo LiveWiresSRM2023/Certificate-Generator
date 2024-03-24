@@ -12,3 +12,4 @@ def home():
 def get_ph():
     num = request.form['number']
     return num  # Or render another template for failure
+
