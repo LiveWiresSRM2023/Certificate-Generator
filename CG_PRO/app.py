@@ -8,26 +8,34 @@ import sqlite3
 
 app = Flask(__name__) 
 
-
-@app.route('/certificate_dow') 
-def certi_dow(): 
-	return render_template('certificate_dow.html') 
-
-
-@app.route('/') 
-@app.route('/home') 
+@app.route('/')  
 def index(): 
-	return render_template('index.html') 
+    
+    # if request.method == 'POST':
+    #     return render_template("user_dashboard.html")
+	# else:
+		return render_template('signin.html') 
 
 
-connect = sqlite3.connect('database.db') 
-connect.execute('CREATE TABLE IF NOT EXISTS PARTICIPANTS1 (name TEXT,  email TEXT, city TEXT, country TEXT, phone TEXT)') 
-connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, password TEXT)') 
+		# connect = sqlite3.connect('database.db') 
+		# connect.execute('CREATE TABLE IF NOT EXISTS PARTICIPANTS1 (name TEXT,  email TEXT, city TEXT, country TEXT, phone TEXT)') 
+		# connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, password TEXT)') 
 
 
 
-@app.route('/signin') 
+@app.route('/signin',methods=["POST",'GET']) 
 def signin(): 
+	if request.method == 'POST': 
+		# name = request.form['name'] 
+		# email= request.form['email'] 
+		# city = request.form['city'] 
+		# country = request.form['country'] 
+		# phone = request.form['phone'] 
+		
+		return render_template("user_dashboard.html") 
+	
+
+
 	return render_template('signin.html') 
 
 
@@ -36,25 +44,23 @@ def signup():
 	return render_template('signup.html') 
 
 
-@app.route('/register', methods=['GET', 'POST']) 
-def register(): 
-	if request.method == 'POST': 
-		name = request.form['name'] 
-		email= request.form['email'] 
-		city = request.form['city'] 
-		country = request.form['country'] 
-		phone = request.form['phone'] 
+# @app.route('/register', methods=['GET', 'POST']) 
+# def register(): 
+# 	if request.method == 'POST': 
+# 		name = request.form['name'] 
+# 		email= request.form['email'] 
+# 		city = request.form['city'] 
+# 		country = request.form['country'] 
+# 		phone = request.form['phone'] 
 		
-		# if email in emails:
-		# 	pass
-
-		with sqlite3.connect("database.db") as users: 
-			cursor = users.cursor() 
-			cursor.execute("INSERT INTO PARTICIPANTS1  (name,email,city,country,phone) VALUES (?,?,?,?,?)", (name, email, city, country, phone)) 
-			users.commit() 
-		return render_template("certificate_dow.html") 
-	else: 
-		return render_template('register.html') 
+	
+# 		with sqlite3.connect("database.db") as users: 
+# 			cursor = users.cursor() 
+# 			cursor.execute("INSERT INTO PARTICIPANTS1  (name,email,city,country,phone) VALUES (?,?,?,?,?)", (name, email, city, country, phone)) 
+# 			users.commit() 
+# 		return render_template("certificate_dow.html") 
+# 	else: 
+# 		return render_template('register.html') 
 
 
 
@@ -74,13 +80,26 @@ def admin_login():
 		return render_template('admin_login.html') 
 
 
-@app.route('/Registration_details') 
-def participants(): 
-	connect = sqlite3.connect('database.db') 
-	cursor = connect.cursor() 
-	cursor.execute('SELECT * FROM PARTICIPANTS1') 
-	data = cursor.fetchall() 
-	return render_template("Registration_details.html", data=data) 
+# @app.route('/Registration_details') 
+# def participants(): 
+# 	connect = sqlite3.connect('database.db') 
+# 	cursor = connect.cursor() 
+# 	cursor.execute('SELECT * FROM PARTICIPANTS1') 
+# 	data = cursor.fetchall() 
+# 	return render_template("Registration_details.html", data=data) 
+
+
+
+# @app.route('/d')
+# def 
+
+# if request.method == 'POST':
+
+@app.route('/user_dashboard',methods=["POST","GET"])
+
+def user_dashboard():
+    return render_template('user_dashboard.html')
+
 
 
 

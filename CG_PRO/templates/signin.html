@@ -14,15 +14,11 @@
 
 
             
-
-            <form>
+            
+            <form action="/user_dashboard" method="POST" enctype="multipart/form-data">
                 <div class="input-group">
                     
-                    {% comment %} <div class="input-user">
-                        <i class="fa-sharp fa-solid fa-user"></i>
-                        <input type="text" placeholder="name">
-                    </div> {% endcomment %}
-
+                  
                     <div class="input-email">
                         <i class="fa-solid fa-envelope"></i>
                         <input type="email" placeholder="email">
@@ -35,10 +31,12 @@
                 <div class="button-field">
                     <h1><a href="http://127.0.0.1:5000/signup" >Sign Up</a> </h1>
                     
-                    <button type="button">Sign In</button>
+                    <button type="submit" >Sign In</button>
+
                 </div>
             </form>
             
+
 
 
         </div>
