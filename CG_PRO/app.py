@@ -14,7 +14,7 @@ connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
 @app.route('/') 
 @app.route('/home') 
 def index():
-	return render_template('signin.html') 
+	return render_template('index.html') 
 
     
     

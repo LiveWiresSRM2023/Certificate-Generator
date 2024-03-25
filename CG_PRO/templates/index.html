@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+  
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+            <nav class="navbar">
+                <div class="container-fluid">
+                  
+                    <div class="logo" style=' float: left; margin-right: 500px;'>
+                    
+                    <img src="static/images/LW1 (light).png"  href="#" alt="LW LOGO">
+
+                    </div>
+
+                    <br>
+                    <div style=' float: right; margin-left: 10px;'>
+                        <ul class="nav navbar-nav">
+                          <li class="active"><a href="#">Home</a></li>
+                          
+                          <li><a href="http://127.0.0.1:5000/user_dashboard">Downolad</a></li>
+                          <li><a href="#">About US</a></li>
+                        </ul>
+                      </div>
+                    <br>
+                    <div   style=' float: left; margin-right: 800px;'>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a href="http://127.0.0.1:5000/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                          <li><a href="http://127.0.0.1:5000/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        </ul>
+                      </div>
+                      <br>   
+                      <video autoplay muted loop id="myVideo2"  style="width:100%; height: 50%; ">
+                        <source src="{{ url_for('static', filename='moon.mp4') }}" type="video/mp4">
+                        Your browser does not support HTML5 video.
+                      </video>
+                    </div>    
+                </div>
+              </nav>
+
+
+              <div class="container">
+        
+
+               
+
+
+
+</body>
+
+</html>
