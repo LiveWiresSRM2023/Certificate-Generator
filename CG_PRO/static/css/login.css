@@ -12,7 +12,7 @@
     /* width: 500px; 
     /* /* height: 300px;  */
     background-image: url('abc.gif'); 
-    opacity: 75%;
+    /* opacity: 75%; */
     /* background-size: cover; This property ensures the GIF covers the entire div */
     /* background-repeat: no-repeat; Prevent the GIF from repeating */
     /* background-position: center; Center the GIF within the div */ */
@@ -70,14 +70,14 @@ a {
 
 }
 .input-user i{
-    margin-right: 300px;
+    /* margin-right: 300px; */
     color: black;
 }
 
 .container {
     width: 100%;
     height: 100vh;
-    overflow: hidden; /* This ensures the video doesn't overflow its container */
+    overflow: hidden; 
     position: relative; /* Required for absolute positioning of the video */
     
 }
@@ -106,7 +106,7 @@ a {
 }
 
 .input-email i{
-    margin-right: 300px;
+    /* margin-right: 300px; */
     color: black;
 }
 
@@ -120,7 +120,7 @@ a {
 }
 
 .input-password i{
-    margin-right: 300px;
+    /* margin-right: 300px; */
     color: black;
 }
 
