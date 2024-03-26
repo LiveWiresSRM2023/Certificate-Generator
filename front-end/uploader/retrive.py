@@ -19,7 +19,7 @@ cursor = conn.cursor()
 # names = cursor.fetchall()
 # for i in names:
 #     print("Tables_name: ",i[0])
-    
+
 # cursor.close()
 # conn.close()
 
@@ -27,22 +27,22 @@ cursor = conn.cursor()
 cursor.execute("SELECT name from sqlite_master WHERE type='table';")
 names = cursor.fetchall()
 for i in names:
-    # print("Tables_name: ",i[0])
+# print("Tables_name: ",i[0])
 
 # Execute SELECT query to fetch data
-    cursor.execute(f"SELECT * FROM {i[0]}")
+cursor.execute(f"SELECT * FROM {i[0]}")
 
 # Fetch all rows
-    rows = cursor.fetchall()
+rows = cursor.fetchall()
 
 # Close cursor and connection
     # cursor.close()
     # conn.close()
 
 # Convert fetched data into DataFrame
-    df = pd.DataFrame(rows, columns=["name","section"])
+df = pd.DataFrame(rows, columns=["name","section"])
 
 # Print DataFrame
-    print(df)
+print(df)
 cursor.close()
 conn.close()

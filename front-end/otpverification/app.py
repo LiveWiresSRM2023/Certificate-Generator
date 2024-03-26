@@ -13,3 +13,9 @@ def get_ph():
     num = request.form['number']
     return num  # Or render another template for failure
 
+# authen
+
+
+if __name__ == '__main__': 
+	app.run(debug=True) 
+
