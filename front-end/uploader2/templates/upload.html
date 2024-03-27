@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Excel and PowerPoint Files</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Excel and PowerPoint Files</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <!-- Excel file upload section -->
+            <label for="file-upload" class="custom-file-upload">Upload Excel File</label>
+            <input id="file-upload" type="file" name="file">
+
+            <!-- PowerPoint file upload section -->
+            <label for="ppt-upload" class="custom-file-upload">Upload PowerPoint Slide</label>
+            <input id="ppt-upload" type="file" name="ppt_file">
+
+            <!-- Sign-out button -->
+            <button type="submit">Upload</button>
+            <a href="/logout"><button type="button">Sign Out</button></a> <!-- Assuming "/logout" is the endpoint for signing out -->
+        </form>
+    </div>
+</body>
+</html>
+
+
