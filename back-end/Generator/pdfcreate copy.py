@@ -6,7 +6,6 @@ data = pd.read_excel("C:/Users/Dev/Desktop/Live_wires_project/CG2/Certificate-Ge
 print(data)
 
 for i in data['Name']:
-    i=i
     length=len(i)*50
     cert = cv2.imread("C:/Users/Dev/Desktop/Live_wires_project/CG2/Certificate-Generator/back-end/Generator/image.png")
     resized = cv2.resize(cert,(1987,1386))
