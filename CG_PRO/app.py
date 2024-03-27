@@ -56,11 +56,10 @@ def retrive_data(email):
     detials=[]
     for name in names:
         table_name = name[0]
-        
-
         cursor.execute(f"SELECT * FROM {table_name}")
         rows = cursor.fetchall()
         df = pd.DataFrame(rows, columns=["Name", "Register_number", "Event", "Email"])
+        print(df)
         data=[i for i in df.values]
         for i in range(len(data)):
             detials.append(data[i])
@@ -156,8 +155,6 @@ if __name__ == '__main__':
 
 
 
-if __name__ == '__main__': 
-	app.run(debug=True) 
 
 
 
