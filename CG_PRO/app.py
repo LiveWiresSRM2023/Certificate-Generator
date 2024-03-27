@@ -1,14 +1,7 @@
+import numpy as np
 from flask import Flask, render_template, request 
-import sqlite3 
-from flask import Flask, render_template, request
-import pandas as pd
-import sqlite3
 import os
 from datetime import datetime
-    
-import sqlite3
-import pandas as pd
-
 import sqlite3
 import pandas as pd
 
@@ -93,7 +86,7 @@ def retrive_data(email):
             detials.append(data[i])
     
 
-    import numpy as np
+    
     df=pd.DataFrame(detials,columns=["Name", "Register_number", "Event", "Email"])
     # print(df)
     dataframe=df[df['Email']==email]
@@ -163,10 +156,7 @@ def signup():
 
 
 
-# @app.route('/d')
-# def 
 
-# if request.method == 'POST':
 
 @app.route('/user_dashboard',methods=["POST","GET"])
 def user_dashboard():
@@ -198,16 +188,6 @@ def user_dashboard():
 # 			return render_template("user_dashboard.html") 
 # 		else:
 # 			return render_template('signin.html')
-
-
-
-
-
-
-
-
-
-
 
 # Configuration for SQLite database
 DB_NAME = 'data.db'
@@ -260,25 +240,6 @@ def upload():
 
     return "Error occurred while uploading file."
 
-
-
-
-
-
-import sqlite3
-import pandas as pd
-# from upload import db_name_list
-
-# # Iterate over db_name_list and print each item
-# for table_name in db_name_list:
-#     print(table_name)
-
-
-# Connect to SQLite database
-conn = sqlite3.connect('data.db')
-
-# Create a cursor object
-cursor = conn.cursor()
 
 def admin_retrive_data():
     conn = sqlite3.connect('data.db')

@@ -9,20 +9,14 @@
 </head>
 <body>
     <div class="container">
-
         <video autoplay muted loop id="myVideo"  style="width:100%; height: auto;">
             <source src="{{ url_for('static', filename='particles.mp4') }}" type="video/mp4">
             Your browser does not support HTML5 video.
-          </video>
-
+        </video>
         <div class ="form-box">
             <h1>Sign UP</h1>
-
-
             <form action="/signup" method="POST" enctype="multipart/form-data">
-                
                 <div class="input-group">
-
                     <div class="input-user">
                         <i class="fas fa-solid fa-user"></i>
                         <input type="text" placeholder="name" name='name'>
@@ -37,15 +31,11 @@
                     </div>
                 </div>
                 <div class="button-field">
-                    <h1><a href="http://127.0.0.1:5000/signin" >Sign In</a> </h1>
-                    
+                    <h1><a href="http://127.0.0.1:5000/signin" >Sign In</a> </h1>                    
                     <button type="submit" >Sign UP</button>
-
                 </div>
             </form>            
-
         </div>
     </div>
-    
 </body>
 </html>

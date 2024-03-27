@@ -7,40 +7,23 @@
     <link rel="stylesheet" href="/static/css/login.css">
     <script src="https://kit.fontawesome.com/447788c533.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Include Font Awesome CSS -->
-
-
     <style>
         .fa-envelope {
             color: white;
           }
     </style>
-
 </head>
+
 <body>
-
-
-
-    
-
-    <div class="container">
-        
-
+    <div class="container">  
         <video autoplay muted loop id="myVideo2"  style="width:100%; height: auto;">
             <source src="{{ url_for('static', filename='particles.mp4') }}" type="video/mp4">
             Your browser does not support HTML5 video.
-          </video>
-
-
+        </video>
         <div class ="form-box">
             <h1>Sign In</h1>
-
-            
-            
             <form action="/signin" method="POST" enctype="multipart/form-data">
-                
-                <div class="input-group">
-                    
-                  
+                <div class="input-group">                    
                     <div class="input-email">
                         <i class="fas fa-envelope" ></i>
                         <input type="email" placeholder="email" name='email'>
@@ -52,17 +35,10 @@
                 </div>
                 <div class="button-field">
                     <h1><a href="http://127.0.0.1:5000/signup" >Sign Up</a> </h1>
-                    
                     <button type="submit" >Sign In</button>
-
                 </div>
             </form>
-            
-
-
-
         </div>
     </div>
-    
 </body>
 </html>

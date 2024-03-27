@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-  
     <title>Home</title>
     <link rel="stylesheet" href="/static/css/admin.css">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
@@ -21,21 +19,16 @@
                     <img src="static/images/LW1 (light).png"  href="#" alt="LW LOGO">
                 </div>
                 <br>
+
                 <div style=' float: right; margin-left: 10px;  color:white;'>
-
-                 
-
-
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="http://127.0.0.1:5000/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                  <li><a href="http://127.0.0.1:5000/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
-
+                  <ul class="nav navbar-nav navbar-right">
+                      <li><a href="http://127.0.0.1:5000/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                      <li><a href="http://127.0.0.1:5000/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  </ul>
                 </div>
                 <br>
 
                 <div   style=' float: left;; margin-right: 800px'>
-
                   <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>      
                     <li><a href="http://127.0.0.1:5000/user_dashboard">Downolad</a></li>
@@ -43,6 +36,7 @@
                   </ul>
                 </div>
                 <br>   
+
                 <div>
                   <video autoplay muted loop id="myVideo2"  style="width:100%; height: 50%; ">
                     <source src="{{ url_for('static', filename='moon.mp4') }}" type="video/mp4">
