@@ -16,6 +16,15 @@ connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
 def index():
 	return render_template('index.html') 
 
+@app.route('/otpsuccess') 
+def otpsuccess():
+	return render_template('otpsuccess.html') 
+
+@app.route('/otp')
+def otp():
+    return render_template('otp.html')
+
+
 
 @app.route('/signin',methods=["POST",'GET']) 
 def signin():
@@ -124,9 +133,7 @@ def upload():
         return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
-@app.route('/otp')
-def otp():
-    return render_template('otp.html')
+
 
 
 def admin_retrive_data():
