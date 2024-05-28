@@ -1,3 +1,5 @@
+import random
+import smtplib
 import numpy as np
 from flask import Flask, render_template, request 
 import os
@@ -12,7 +14,9 @@ app = Flask(__name__)
 connect = sqlite3.connect('database.db')
 connect.execute('CREATE TABLE IF NOT EXISTS USER (name TEXT,  email TEXT, password TEXT)')
 connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
-
+OTP=""
+receiver_email=""
+user_name=""
 @app.route('/') 
 @app.route('/home') 
 def index():
@@ -96,16 +100,20 @@ def retrive_data(email):
 
 @app.route('/signup',methods=['GET','POST']) 
 def signup():
+    global receiver_email
+    global user_name
     if request.method == 'POST':
         name = request.form['name']
         email= request.form['email']
+        receiver_email=email
+        user_name=name
         password = request.form['password']
         with sqlite3.connect("database.db") as users:
             cursor = users.cursor()
             cursor.execute("INSERT INTO USER(name,email,password) VALUES (?,?,?)", (name, email,password))
             users.commit()
-            
-        return render_template('signin.html')
+        otp()
+        return render_template('otp.html')
     else:
         return render_template('signup.html')
 
@@ -146,9 +154,82 @@ def upload():
         return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
-@app.route('/otp')
+
 def otp():
-    return render_template('otp.html')
+    global OTP
+
+    
+    OTP = random.randint(100000,999999)      #generating a randomm 6-digit OTP
+
+    #setting up server
+    server = smtplib.SMTP('smtp.gmail.com',587)
+    #server = smtplib.SMTP('64.233.184.108',587)           #IP address of smtp.gmail.com to bypass DNS resolution
+    server.starttls()
+
+    # name = input("enter your name:")
+    global receiver_email
+    global user_name
+    name=user_name
+    # receiver_email = input("enter ur email id:")
+
+    def email_verification(receiver_email):
+        email_check1 = ["gmail","hotmail","yahoo","outlook"]
+        email_check2 = [".com",".in",".org",".edu",".co.in"]
+        count = 0
+
+        for domain in email_check1:
+            if domain in receiver_email:
+                count+=1
+        for site in email_check2:
+            if site in receiver_email:
+                count+=1
+
+        if "@" not in receiver_email or count!=2:
+            print("invalid email id")
+            new_receiver_email = input("enter correct email id:")
+            email_verification(new_receiver_email)
+            return new_receiver_email
+        
+        return receiver_email
+
+    valid_receiver_email = email_verification(receiver_email)
+    password = "stqqwjqoocucknsx"
+    server.login("priyanshu25122002@gmail.com",password)
+
+
+    body = "dear"+name+","+"\n"+"\n"+"your OTP is "+str(OTP)+"."
+    subject = "OTP verification using python"
+    message = f'subject:{subject}\n\n{body}'
+
+    server.sendmail("priyanshu25122002@gmail.com",valid_receiver_email,message)
+
+
+
+
+
+    
+
+    def sending_otp(receiver_email):
+        new_otp = random.randint(100000,999999)
+
+        body = "dear"+name+","+"\n"+"\n"+"your OTP is "+str(new_otp)+"."
+        subject = "OTP verification using python" 
+        message = f'subject:{subject}\n\n{body}'
+        server.sendmail("priyanshu25122002@gmail.com",receiver_email,message)
+        print("OTP has been sent to"+receiver_email)
+        received_OTP = int(input("enter OTP:"))
+
+        if received_OTP==new_otp:
+            return("OTP verified")
+        else:
+            sending_otp(receiver_email)
+            return("invalid OTP")
+            
+            
+        
+    print("OTP has been sent to "+valid_receiver_email)
+    
+    
 
 
 def admin_retrive_data():
@@ -162,6 +243,38 @@ def admin_retrive_data():
         df = pd.DataFrame(rows, columns=["name","section"])
     cursor.close()
     conn.close()
+
+@app.route('/otp_verify',methods=["POST"])
+def otp_verfication():
+
+
+    global OTP
+    if request.method == 'POST':
+        received_OTP = request.form['OTP']
+
+        if int(received_OTP)==int(OTP):
+            print("OTP verified")
+            return render_template('signin.html')
+            
+        else:
+            print(OTP,received_OTP)
+            return("invalid OTP")
+            # answer = input("enter yes to resend OTP on same email and no to enter a new email id:")
+            # YES = ['YES','yes','Yes']
+            # NO = ['NO','no','No']
+            # if answer in YES:
+            #     sending_otp(valid_receiver_email)
+            # elif answer in NO:
+            #     new_receiver_email = input("enter new email id:")
+            #     email_verification(new_receiver_email)
+            #     sending_otp(new_receiver_email)
+            # else:
+                # print("invalid input")
+
+        server.quit()
+        
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
