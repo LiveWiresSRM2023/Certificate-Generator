@@ -4,6 +4,8 @@ import os
 from datetime import datetime
 import sqlite3
 import pandas as pd
+from generator_engine.demo import gen_engine
+from flask import send_from_directory
 
 
 app = Flask(__name__) 
@@ -16,14 +18,12 @@ connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
 def index():
 	return render_template('index.html') 
 
-@app.route('/otpsuccess') 
-def otpsuccess():
-	return render_template('otpsuccess.html') 
 
-@app.route('/otp')
-def otp():
-    return render_template('otp.html')
-
+@app.route('/download')
+def download_file():
+    filename = request.args.get('filename')
+    directory = "C:\\Users\\Dev\\Desktop\\Certificate-Generator\\CG_PRO\\generator_engine"
+    return send_from_directory(directory, filename, as_attachment=True)
 
 
 @app.route('/signin',methods=["POST",'GET']) 
@@ -48,7 +48,14 @@ def signin():
             else:
                 return False
         if check_email(data_):
+
             data=retrive_data(email)
+            names=[i[0] for i in data]
+            engine = gen_engine()
+            # Call the generate method with the list of names
+            engine.generate( {'Name': names})
+
+            
             return render_template("user_dashboard.html",data=data)
         else:
             return "Please, Check your email and password!"
@@ -56,6 +63,12 @@ def signin():
         return render_template('signin.html')
         
         
+
+        # names = {'Name': ['Rajesh k', "Mohammad Vaseem", "Devan S", "Nikil Paul", "Saravana Kumar"]}
+
+
+
+
 def retrive_data(email):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
@@ -112,7 +125,7 @@ if not os.path.exists(DB_NAME):
     conn.close()
 
 @app.route('/admin')
-def admin():
+def admin(a=True):
     return render_template('upload.html')
 
 @app.route('/upload', methods=['POST'])
@@ -133,7 +146,9 @@ def upload():
         return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
-
+@app.route('/otp')
+def otp():
+    return render_template('otp.html')
 
 
 def admin_retrive_data():
@@ -169,3 +184,29 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+
+# from flask import Flask, render_template
+# from generator_engine.demo import gen_engine
+
+# app = Flask(__name__)
+
+# # Create an instance of the gen_engine class
+
+
+# @app.route('/admin')
+# def admin():
+#     # Define the list of names
+#     names = {'Name': ['Rajesh k', "Mohammad Vaseem", "Devan S", "Nikil Paul", "Saravana Kumar"]}
+#     engine = gen_engine()
+#     # Call the generate method with the list of names
+#     engine.generate(names)
+    
+#     return render_template('upload.html')
+
+# if __name__ == "__main__":
+#     # app.run(debug=True)
+#     app.run(port=5001)
