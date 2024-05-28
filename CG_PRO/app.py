@@ -124,6 +124,10 @@ def upload():
         return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
+@app.route('/otp')
+def otp():
+    return render_template('otp.html')
+
 
 def admin_retrive_data():
     conn = sqlite3.connect('data.db')
