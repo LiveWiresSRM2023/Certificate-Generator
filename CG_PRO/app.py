@@ -26,7 +26,7 @@ def index():
 @app.route('/download')
 def download_file():
     filename = request.args.get('filename')
-    directory = "C:\\Users\\Dev\\Desktop\\Certificate-Generator\\CG_PRO\\generator_engine"
+    directory = "../CG_PRO/generator_engine/certif_img"
     return send_from_directory(directory, filename, as_attachment=True)
 
 
@@ -133,7 +133,7 @@ if not os.path.exists(DB_NAME):
     conn.close()
 
 @app.route('/admin')
-def admin(a=True):
+def admin():
     return render_template('upload.html')
 
 @app.route('/upload', methods=['POST'])

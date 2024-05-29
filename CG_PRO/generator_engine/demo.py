@@ -114,7 +114,8 @@ class gen_engine:
         df = pd.DataFrame(names)
 
         # Path to the font file
-        font_path = "C:\\Users\\Dev\\Desktop\\CGP_V1.3 ENV\\venv\\Certificate-Generator\\CG_PRO\\generator_engine\\GreatVibes-Regular.ttf"
+        font_path = "../CG_PRO/generator_engine/fonts/GreatVibes-Regular.ttf"
+         
 
         # Check if the font file exists
         if not os.path.exists(font_path):
@@ -135,9 +136,11 @@ class gen_engine:
             length = font_file.getlength(name)
             start_x = (width - length) // 2
             draw.text((start_x, (height - 250) // 2), name, fill=font_color, font=font_file)
-            
+
             # Construct the output path
-            output_path = os.path.join('C:\\Users\\Dev\\Desktop\\Certificate-Generator\\CG_PRO\\generator_engine\\', f'{name}.png')
+            output_path = os.path.join('../CG_PRO/generator_engine/certif_img', f'{name}.png')
+            # output_path = os.path.join('C:/Users/Dev/Desktop/CertificaV3/CG_PRO/generator_engine/certif_img', f'{name}.png')
+        
             template.save(output_path)
             
             
@@ -145,21 +148,11 @@ class gen_engine:
             return "Completed"
 
         # Generate certificates for all names in the DataFrame
-        
+
         for name in df['Name']:
-            generation("C:\\Users\\Dev\\Desktop\\CGP_V1.3 ENV\\venv\\Certificate-Generator\\CG_PRO\\generator_engine\\template.png", name)
+            generation("../CG_PRO/generator_engine/template.png", name)
         print("Completed")
 
 
 
 
-
-
-
-
-
-
-# names = {'Name': ['Rajesh k', "Mohammad Vaseem", "Devan S", "Nikil Paul", "Saravana Kumar"]}
-# engine=gen_engine()
-#     # Call the generate method with the list of names
-# engine.generate(names)
