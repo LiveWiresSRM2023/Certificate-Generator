@@ -39,6 +39,7 @@ def signin():
         
         admin=['ds1083@srmist.edu.in','vs33@srmist.edu.in']
         if email in admin:
+            
             return render_template('upload.html')
         
         connect = sqlite3.connect('database.db')
@@ -132,9 +133,9 @@ if not os.path.exists(DB_NAME):
     conn = sqlite3.connect(DB_NAME)
     conn.close()
 
-@app.route('/admin')
-def admin():
-    return render_template('upload.html')
+# @app.route('/admin')
+# def admin():
+#     return render_template('upload.html')
 
 @app.route('/upload', methods=['POST'])
 def upload():
