@@ -1,28 +1,37 @@
+
+
+
+
+
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Excel File</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Upload</title>
 </head>
 <body>
+    <h1>Admin Upload</h1>
+    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+        <label for="culturalName">Cultural Name:</label>
+        <input type="text" id="culturalName" name="culturalName" required><br><br>
+
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" required><br><br>
+
+        <label for="file">Choose PNG file:</label>
+        <input type="file" id="file" name="file_template" accept="image/png" required><br><br>
+
     <div class="container">
         <h1>Upload Excel File</h1>
-        <form action="/upload" method="post" enctype="multipart/form-data">
             <label for="file-upload" class="custom-file-upload">Choose File</label>
-            <input id="file-upload" type="file" name="file">
+            <input id="file-upload" type="file" name="file_excel">
             <button type="submit">Upload</button>
         </form>
     </div>
+
+
 </body>
 </html>
-
-
-
-
-
-
-
-
 

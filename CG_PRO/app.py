@@ -8,6 +8,9 @@ import sqlite3
 import pandas as pd
 from generator_engine.demo import gen_engine
 from flask import send_from_directory
+import firebase_admin
+from firebase_admin import credentials, firestore
+
 
 
 app = Flask(__name__) 
@@ -139,6 +142,16 @@ if not os.path.exists(DB_NAME):
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    
+    if request.form['cultural_name']:
+    
+        cultural_name = request.form['culturalName']
+        event_name = request.form['eventName']
+        file = request.files['file']
+        
+        upload_template(cultural_name,event_name,file)
+    
+    
     if 'file' not in request.files:
         return "No file part"
     file = request.files['file']
@@ -242,6 +255,54 @@ def otp_verfication():
         server.quit()
        
         
+
+#firebase#######
+
+
+# Initialize Firebase using the service account key JSON file
+cred = credentials.Certificate("serviceKey.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
+
+# @app.route('/upload_template', methods=['POST'])
+def upload_template(cultural_name,event_name,file):
+    try:
+        
+
+        # Check if collection exists for cultural name
+        cultural_ref = db.collection(cultural_name)
+
+        # Convert file to bytes to store in Firestore
+        file_bytes = file.read()
+
+        # Set data for the document
+        doc_data = {
+            'image': file_bytes
+        }
+
+        # Add document to the collection with the event name as the document ID
+        doc_ref = cultural_ref.document(event_name)
+        doc_ref.set(doc_data)
+
+        # return redirect(url_for('index'))
+    
+    except Exception as e:
+        print("Error during upload:", e)
+        return "An error occurred during upload."
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
