@@ -68,7 +68,7 @@ def signin():
         
         
 
-        # names = {'Name': ['Rajesh k', "Mohammad Vaseem", "Devan S", "Nikil Paul", "Saravana Kumar"]}
+       
 
 
 
@@ -112,7 +112,7 @@ def signup():
             cursor = users.cursor()
             cursor.execute("INSERT INTO USER(name,email,password) VALUES (?,?,?)", (name, email,password))
             users.commit()
-        otp()
+        otp_generator()
         return render_template('otp.html')
     else:
         return render_template('signup.html')
@@ -155,28 +155,20 @@ def upload():
     return "Error occurred while uploading file."
 
 
-def otp():
+def otp_generator():
     global OTP
-
-    
     OTP = random.randint(100000,999999)      #generating a randomm 6-digit OTP
-
     #setting up server
     server = smtplib.SMTP('smtp.gmail.com',587)
     #server = smtplib.SMTP('64.233.184.108',587)           #IP address of smtp.gmail.com to bypass DNS resolution
     server.starttls()
-
-    # name = input("enter your name:")
     global receiver_email
     global user_name
     name=user_name
-    # receiver_email = input("enter ur email id:")
-
     def email_verification(receiver_email):
         email_check1 = ["gmail","hotmail","yahoo","outlook"]
         email_check2 = [".com",".in",".org",".edu",".co.in"]
         count = 0
-
         for domain in email_check1:
             if domain in receiver_email:
                 count+=1
@@ -203,31 +195,15 @@ def otp():
 
     server.sendmail("priyanshu25122002@gmail.com",valid_receiver_email,message)
 
-
-
-
-
-    
-
     def sending_otp(receiver_email):
         new_otp = random.randint(100000,999999)
 
-        body = "dear"+name+","+"\n"+"\n"+"your OTP is "+str(new_otp)+"."
-        subject = "OTP verification using python" 
+        body = "Dear "+'\t'+name+","+"\n"+"\n"+" your OTP is "+str(new_otp)+"\n"+"Thanks for your SignUp."
+        subject = "OTP verification for SRM institute of arts and Science" 
         message = f'subject:{subject}\n\n{body}'
         server.sendmail("priyanshu25122002@gmail.com",receiver_email,message)
         print("OTP has been sent to"+receiver_email)
-        received_OTP = int(input("enter OTP:"))
-
-        if received_OTP==new_otp:
-            return("OTP verified")
-        else:
-            sending_otp(receiver_email)
-            return("invalid OTP")
-            
-            
         
-    print("OTP has been sent to "+valid_receiver_email)
     
     
 
@@ -253,25 +229,17 @@ def otp_verfication():
         received_OTP = request.form['OTP']
 
         if int(received_OTP)==int(OTP):
+            
             print("OTP verified")
-            return render_template('signin.html')
+            return render_template('otpsuccess.html')
             
         else:
+            
             print(OTP,received_OTP)
             return("invalid OTP")
-            # answer = input("enter yes to resend OTP on same email and no to enter a new email id:")
-            # YES = ['YES','yes','Yes']
-            # NO = ['NO','no','No']
-            # if answer in YES:
-            #     sending_otp(valid_receiver_email)
-            # elif answer in NO:
-            #     new_receiver_email = input("enter new email id:")
-            #     email_verification(new_receiver_email)
-            #     sending_otp(new_receiver_email)
-            # else:
-                # print("invalid input")
-
+            
         server.quit()
+       
         
 
 
@@ -299,27 +267,3 @@ if __name__ == '__main__':
 
 
 
-
-
-
-# from flask import Flask, render_template
-# from generator_engine.demo import gen_engine
-
-# app = Flask(__name__)
-
-# # Create an instance of the gen_engine class
-
-
-# @app.route('/admin')
-# def admin():
-#     # Define the list of names
-#     names = {'Name': ['Rajesh k', "Mohammad Vaseem", "Devan S", "Nikil Paul", "Saravana Kumar"]}
-#     engine = gen_engine()
-#     # Call the generate method with the list of names
-#     engine.generate(names)
-    
-#     return render_template('upload.html')
-
-# if __name__ == "__main__":
-#     # app.run(debug=True)
-#     app.run(port=5001)
