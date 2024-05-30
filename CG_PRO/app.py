@@ -6,20 +6,29 @@ import os
 from datetime import datetime
 import sqlite3
 import pandas as pd
-from generator_engine.demo import gen_engine
+from generator_engine.demo import gen_engine,retrive_template
 from flask import send_from_directory
-import firebase_admin
+
 from firebase_admin import credentials, firestore
-
-
+from flask import Flask, render_template, request, redirect, url_for
+import firebase_admin
+from firebase_admin import credentials, firestore, storage
+import os
+import tempfile
+from generator_engine.fb_access import db, bucket
 
 app = Flask(__name__) 
+
+#SQLlite init
 connect = sqlite3.connect('database.db')
 connect.execute('CREATE TABLE IF NOT EXISTS USER (name TEXT,  email TEXT, password TEXT)')
 connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
+
 OTP=""
 receiver_email=""
 user_name=""
+
+
 @app.route('/') 
 @app.route('/home') 
 def index():
@@ -33,6 +42,63 @@ def download_file():
     return send_from_directory(directory, filename, as_attachment=True)
 
 
+
+@app.route('/upload_template', methods=['POST'])
+def upload_template():
+    
+    print(db,bucket)
+    print("_____________________________________________________________________________________________________________")
+    if not db or not bucket:
+        
+        return "Failed to initialize Firebase.", 500
+
+    try:
+        cultural_name = request.form['culturalName']
+        event_name = request.form['eventName']
+        file = request.files['file']
+        print(f"Received file: {file.filename} for cultural name: {cultural_name} and event name: {event_name}")
+        cultural_ref = db.collection(cultural_name)
+
+        # Create a temporary file to upload
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            file.save(temp_file.name)
+            temp_file.close()  # Ensure the file is closed before uploading
+            print(f"Temporary file saved at: {temp_file.name}")
+
+            # Create a unique filename for the image
+            file_name = f"{cultural_name}_{event_name}.png"
+            blob = bucket.blob(file_name)
+            print(f"Uploading file to blob: {file_name}")
+            blob.upload_from_filename(temp_file.name)
+
+            # Make the blob publicly accessible
+            blob.make_public()
+            print(f"File uploaded successfully. Public URL: {blob.public_url}")
+
+            # Get URL of the uploaded file
+            file_url = blob.public_url
+
+            # Set data for the document
+            doc_data = {
+                'image': file_url
+            }
+
+            # Add document to the collection with the event name as the document ID
+            doc_ref = cultural_ref.document(event_name)
+            doc_ref.set(doc_data)
+            print(f"Document created in Firestore for event: {event_name}")
+
+            # Delete the temporary file after uploading
+            os.remove(temp_file.name)
+            print(f"Temporary file deleted: {temp_file.name}")
+
+        return "Successfully uploaded"
+
+    except Exception as e:
+        print("Error during upload:", e)
+        return f"An error occurred during upload: {e}", 500
+
+
 @app.route('/signin',methods=["POST",'GET']) 
 def signin():
     if request.method == 'POST':
@@ -43,7 +109,7 @@ def signin():
         admin=['ds1083@srmist.edu.in','vs33@srmist.edu.in']
         if email in admin:
             
-            return render_template('upload.html')
+            return render_template('admin.html')
         
         connect = sqlite3.connect('database.db')
         cursor = connect.cursor()
@@ -58,24 +124,18 @@ def signin():
         if check_email(data_):
 
             data=retrive_data(email)
+            events=[i[2] for i in data]
             names=[i[0] for i in data]
             engine = gen_engine()
-            # Call the generate method with the list of names
-            engine.generate( {'Name': names})
+            # for i in range(len(names)):
+            engine.generate(names)
 
-            
             return render_template("user_dashboard.html",data=data)
         else:
             return "Please, Check your email and password!"
     else:
         return render_template('signin.html')
         
-        
-
-       
-
-
-
 
 def retrive_data(email):
     conn = sqlite3.connect('data.db')
@@ -136,25 +196,12 @@ if not os.path.exists(DB_NAME):
     conn = sqlite3.connect(DB_NAME)
     conn.close()
 
-# @app.route('/admin')
-# def admin():
-#     return render_template('upload.html')
 
 @app.route('/upload', methods=['POST'])
-def upload():
-    
-    if request.form['cultural_name']:
-    
-        cultural_name = request.form['culturalName']
-        event_name = request.form['eventName']
-        file = request.files['file']
-        
-        upload_template(cultural_name,event_name,file)
-    
-    
-    if 'file' not in request.files:
+def upload():    
+    if 'file_excel' not in request.files:
         return "No file part"
-    file = request.files['file']
+    file = request.files['file_excel']
     if file.filename == '':
         return "No selected file"
     if file:
@@ -165,16 +212,17 @@ def upload():
         db_name_list.append(table_name)
         conn.commit()
         conn.close()
-        return f"File uploaded successfully and data inserted into table: {table_name}"
+        return "Successfuly uploaded the file"
+        # return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
 
 def otp_generator():
     global OTP
-    OTP = random.randint(100000,999999)      #generating a randomm 6-digit OTP
+    OTP = random.randint(100000,999999)     
     #setting up server
     server = smtplib.SMTP('smtp.gmail.com',587)
-    #server = smtplib.SMTP('64.233.184.108',587)           #IP address of smtp.gmail.com to bypass DNS resolution
+    #server = smtplib.SMTP('64.233.184.108',587)#IP address of smtp.gmail.com to bypass DNS resolution
     server.starttls()
     global receiver_email
     global user_name
@@ -254,78 +302,6 @@ def otp_verfication():
             
         server.quit()
        
-        
-
-#firebase#######
-
-
-# Initialize Firebase using the service account key JSON file
-cred = credentials.Certificate("serviceKey.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
-
-
-# @app.route('/upload_template', methods=['POST'])
-def upload_template(cultural_name,event_name,file):
-    try:
-        
-
-        # Check if collection exists for cultural name
-        cultural_ref = db.collection(cultural_name)
-
-        # Convert file to bytes to store in Firestore
-        file_bytes = file.read()
-
-        # Set data for the document
-        doc_data = {
-            'image': file_bytes
-        }
-
-        # Add document to the collection with the event name as the document ID
-        doc_ref = cultural_ref.document(event_name)
-        doc_ref.set(doc_data)
-
-        # return redirect(url_for('index'))
-    
-    except Exception as e:
-        print("Error during upload:", e)
-        return "An error occurred during upload."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
