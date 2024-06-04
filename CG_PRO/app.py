@@ -1,33 +1,32 @@
 import random
 import smtplib
-import numpy as np
-from flask import Flask, render_template, request 
+from flask import Flask, render_template, request ,send_file
 import os
 from datetime import datetime
 import sqlite3
 import pandas as pd
-from generator_engine.demo import gen_engine,retrive_template
-from flask import send_from_directory
-
-from firebase_admin import credentials, firestore
-from flask import Flask, render_template, request, redirect, url_for
-import firebase_admin
-from firebase_admin import credentials, firestore, storage
-import os
+from generator_engine.demo import gen_engine
 import tempfile
+from io import BytesIO
+import generator_engine.demo as demo
 from generator_engine.fb_access import db, bucket
 
 app = Flask(__name__) 
+
 
 #SQLlite init
 connect = sqlite3.connect('database.db')
 connect.execute('CREATE TABLE IF NOT EXISTS USER (name TEXT,  email TEXT, password TEXT)')
 connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
 
+#Global variable initialization
 OTP=""
 receiver_email=""
 user_name=""
 
+eve=[]
+prog=[]
+name_list=[]
 
 @app.route('/') 
 @app.route('/home') 
@@ -38,39 +37,55 @@ def index():
 @app.route('/download')
 def download_file():
     filename = request.args.get('filename')
-    directory = "../CG_PRO/generator_engine/certif_img"
-    return send_from_directory(directory, filename, as_attachment=True)
+    global prog, eve, name_list
+    
+    # Replace with your actual data
+    names = name_list
+    cultural_names = prog
+    event_names = eve
+    
+    
+    # Retrieve certificates from demo.py
+    gn = demo.gen_engine()
+    certificates = gn.generate(names, cultural_names, event_names)
 
+    # Find the certificate matching the filename
+    matching_certificate = None
+    for i, cert_data in enumerate(certificates):
+        if f"{cultural_names[i]}_{event_names[i]}_{names[i]}.png" == filename:
+            matching_certificate = cert_data
+            break
 
+    if matching_certificate:
+        return send_file(BytesIO(matching_certificate), mimetype='image/png', as_attachment=True, download_name=filename)
+    else:
+        return f"Error: Certificate '{filename}' not found.", 404
 
 @app.route('/upload_template', methods=['POST'])
 def upload_template():
-    
-    print(db,bucket)
-    print("_____________________________________________________________________________________________________________")
-    if not db or not bucket:
-        
+    if not db or not bucket:        
         return "Failed to initialize Firebase.", 500
-
     try:
         cultural_name = request.form['culturalName']
         event_name = request.form['eventName']
+        cultural_name=cultural_name.lower()
+        event_name=event_name.lower()
         file = request.files['file']
         print(f"Received file: {file.filename} for cultural name: {cultural_name} and event name: {event_name}")
         cultural_ref = db.collection(cultural_name)
-
+        
         # Create a temporary file to upload
         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
             file.save(temp_file.name)
             temp_file.close()  # Ensure the file is closed before uploading
             print(f"Temporary file saved at: {temp_file.name}")
-
+            
             # Create a unique filename for the image
             file_name = f"{cultural_name}_{event_name}.png"
             blob = bucket.blob(file_name)
             print(f"Uploading file to blob: {file_name}")
             blob.upload_from_filename(temp_file.name)
-
+            
             # Make the blob publicly accessible
             blob.make_public()
             print(f"File uploaded successfully. Public URL: {blob.public_url}")
@@ -79,9 +94,7 @@ def upload_template():
             file_url = blob.public_url
 
             # Set data for the document
-            doc_data = {
-                'image': file_url
-            }
+            doc_data = {'image': file_url}
 
             # Add document to the collection with the event name as the document ID
             doc_ref = cultural_ref.document(event_name)
@@ -122,14 +135,17 @@ def signin():
             else:
                 return False
         if check_email(data_):
-
+            global eve,prog, name_list
             data=retrive_data(email)
-            events=[i[2] for i in data]
-            names=[i[0] for i in data]
+            eve=events=[i[3] for i in data]
+            prog=program=[i[2] for i in data]
+            name_list=name=[i[0] for i in data]
+            data=pd.DataFrame(data)
+            img_name_lst=[program[i]+'_'+events[i]+'_'+name[i] for i in range(len(name))]
+            data[5]=img_name_lst
+            data=[list(data.iloc[i].values) for i in range(len(data))]
             engine = gen_engine()
-            # for i in range(len(names)):
-            engine.generate(names)
-
+            engine.generate(names=name,cultural_names=program,event_names=events)        
             return render_template("user_dashboard.html",data=data)
         else:
             return "Please, Check your email and password!"
@@ -142,20 +158,17 @@ def retrive_data(email):
     cursor = conn.cursor()
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
     names = cursor.fetchall()
-
     detials=[]
     for name in names:
         table_name = name[0]
         cursor.execute(f"SELECT * FROM {table_name}")
         rows = cursor.fetchall()
-        df = pd.DataFrame(rows, columns=["Name", "Register_number", "Event", "Email"])
-        print(df)
+        df = pd.DataFrame(rows, columns=["Name", "Register_number","program", "Event", "Email"])
         data=[i for i in df.values]
         for i in range(len(data)):
             detials.append(data[i])
-    df=pd.DataFrame(detials,columns=["Name", "Register_number", "Event", "Email"])
+    df=pd.DataFrame(detials,columns=["Name", "Register_number","program", "Event", "Email"])
     dataframe=df[df['Email']==email]
-    print(dataframe)
     final_data=[]
     data_=[i for i in dataframe.values]
     for i in range(len(data_)):
@@ -213,7 +226,6 @@ def upload():
         conn.commit()
         conn.close()
         return "Successfuly uploaded the file"
-        # return f"File uploaded successfully and data inserted into table: {table_name}"
     return "Error occurred while uploading file."
 
 
@@ -222,7 +234,7 @@ def otp_generator():
     OTP = random.randint(100000,999999)     
     #setting up server
     server = smtplib.SMTP('smtp.gmail.com',587)
-    #server = smtplib.SMTP('64.233.184.108',587)#IP address of smtp.gmail.com to bypass DNS resolution
+    #server = smtplib.SMTP('64.233.184.108',587) #IP address of smtp.gmail.com to bypass DNS resolution
     server.starttls()
     global receiver_email
     global user_name
@@ -266,9 +278,6 @@ def otp_generator():
         server.sendmail("priyanshu25122002@gmail.com",receiver_email,message)
         print("OTP has been sent to"+receiver_email)
         
-    
-    
-
 
 def admin_retrive_data():
     conn = sqlite3.connect('data.db')
@@ -284,8 +293,6 @@ def admin_retrive_data():
 
 @app.route('/otp_verify',methods=["POST"])
 def otp_verfication():
-
-
     global OTP
     if request.method == 'POST':
         received_OTP = request.form['OTP']
@@ -299,7 +306,7 @@ def otp_verfication():
             
             print(OTP,received_OTP)
             return("invalid OTP")
-            
+                    
         server.quit()
        
 if __name__ == '__main__':

@@ -1,5 +1,9 @@
 
 
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,6 +132,7 @@ tr {
           <tr>
             <th>Name</th>
             <th>Register Number</th>
+            <th>Program</th>
             <th>Event</th>
             <th>Email</th>
             <th>Certificate</th>
@@ -141,7 +146,9 @@ tr {
               <td>{{ participant[1] }}</td> 
               <td>{{ participant[2] }}</td> 
               <td>{{ participant[3] }}</td> 
-              <td><button onclick="downloadImage('{{ participant[0] }}.png')">Download</button></td>
+              <td>{{ participant[4] }}</td> 
+              
+              <td><button onclick="downloadImage('{{participant[5]}}.png')" >Download</button></td>
             </tr> 
           {% endfor %} 
         </tbody>
@@ -170,189 +177,3 @@ tr {
 
 
 
-
-
-
-
-
-<!-- <html>
-
-
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial;
-  font-size: 17px;
-}
-
-#myVideo {
-  position: center;
-  right: 0;
-  bottom: 0;
-  min-width: 100%; 
-  min-height: 100%;
-}
-
-.content {
-  position: fixed;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  color: #f1f1f1;
-  width: 100%;
-  padding: 20px;
-}
-
-#myBtn {
-  width: 200px;
-  font-size: 18px;
-  padding: 10px;
-  border: none;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
-}
-
-#myBtn:hover {
-  background: #ddd;
-  color: black;
-}
-
-
-/* Custom styling for table */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.col-break {
-  border-left: 12px solid black;
-}
-
-.custom-button {
-    background-color: blue;
-
-}
-th, td {
-  padding: 8px;
-  text-align: left;
-}
-
-/* Header styling */
-th {
-  background-color: black;
-  color: white;
-}
-
-/* Alternating row colors for data */
-tr {
-  background-color: #f2f2f2; /* Light gray */
-  color: black;
-}
-</style>
-
-
-<script>
-
-  var btn = document.getElementById("myBtn");
-  
-  function myFunction() {
-  
-      
-      myBtn.innerHTML = "Thanks for the paticipation";
-      abc.innerHTML=" &nbsp; &emsp;Receiving your certificate is a milestone worth celebrating. It's a symbol of your expertise, determination, and the limitless possibilities that lie ahead.<br> Your certificate is not just a piece of paper; it's a testament to your commitment, resilience, and pursuit of excellence. Well done!";
-    }
-  </script>
-
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-</head>
-<body>
-
-
-<video autoplay muted loop id="myVideo"  style="width:100%; height: auto;">
-  <source src="{{ url_for('static', filename='abc.mp4') }}" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
-
-<div class="content" style=" text-align: center;">
-  <h1>Download your Certificate</h1>
-<br>
-  <p id="abc">   
-                  Receiving your certificate is a milestone worth celebrating. It's a symbol of your expertise, determination, and the limitless possibilities that lie ahead.<br> Your certificate is not just a piece of paper; it's a testament to your commitment, resilience, and pursuit of excellence. Well done!
-    </p>
-  
-<br>
-  <div style="opacity: 100%;  text-align: center;">
-
-
-
-    <table >
-        
-        <thead >
-          <tr>
-            <th>Name</th>
-            <th>Register Number</th>
-            <th>Event</th>
-            <th>Email</th>
-            <th
-            
-            
-            
-            >Certificate</th>
-          </tr>
-        </thead>
-        
-        {%for participant in data%} 
-			<tr> 
-				<td>{{participant[0]}}</td> 
-				<td>{{participant[1]}}</td> 
-				<td>{{participant[2]}}</td> 
-				<td>{{participant[3]}}</td> 
-				<td>{{participant[4]}}</td> 
-        
-				</tr> 
-
-			{%endfor%} 
-        </tbody>
-        <button id="myBtn" onclick="downloadImage('devan.png')"> Download</button>
-      </table>
-</div>
-</div>
-
-<script>
-  function downloadImage(filename) {
-      fetch('C:\\Users\\Dev\\Desktop\\Certificate-Generator\\CG_PRO\\generator_engine\\' + filename)
-      .then(response => response.blob())
-      .then(blob => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-      });
-  }
-  </script>
-</body>
-<div>
-</div>
-
-
-
-</html> -->
