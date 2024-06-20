@@ -3,57 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="/static/css/index.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('static/images/solid-concrete-wall-textured-background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #0F0E0E;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'Jura', sans-serif;
+            font-weight: 400; /* Normal weight for body text */
+        }
+        .quote {
+            font-weight: 600; /* Bold weight for the quote */
+        }
+        .glow-button {
+            border-radius: 0px;
+            padding: 10px 30px;
+            transition: all 0.3s ease;
+            font-family: 'Jura', sans-serif;
+            font-weight: 700; /* Bold weight for buttons */
+        }
+        .glow-button-download {
+            background-color: #7BC74D;
+            border-color: #7BC74D;
+            display: inline-block;
+            width: 300px;
+            height: 60px;
+            color: black;
+            line-height: 40px;
+            border-radius: 0px;
+            text-align: center;
+        }
+        .glow-button:hover, .glow-button:focus {
+            box-shadow: 0px 0px 15px #7BC74D;
+            background-color: #7BC74D;
+            color: black;
+        }
+        .glow-button-download:hover, .glow-button-download:focus{
+            line-height: 40px;
+            width: 350px;
+            font-size: 20px;
+            height: 65px;
+        }
+        .glow-button-signup, .glow-button-login {
+            color: #7BC74D;
+            border-color: #7BC74D;
+            background-color: transparent;
+        }
+        .glow-button-signup:hover, .glow-button-login:hover , .glow-button-signup:focus, .glow-button-login:focus {
+            background-color: #7BC74D;
+            color: #000000;
+        }
+    </style>
 </head>
-
 <body>
-  <div>
-    <nav class="navbar">
-        <div class="container-fluid">  
-                <div class="logo" style=' float: left; margin-right: 500px;'>
-                    <img src="static/images/LW1 (light).png"  href="#" alt="LW LOGO">
-                </div>
-                <br>
-
-                <div style=' float: right; margin-left: 10px;  color:white;'>
-                  <ul class="nav navbar-nav navbar-right">
-                      <li><a href="http://127.0.0.1:5000/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                      <li><a href="http://127.0.0.1:5000/signin"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                  </ul>
-                </div>
-                <br>
-
-                <div   style=' float: left;; margin-right: 800px'>
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>      
-                    <li><a href="http://127.0.0.1:5000/user_dashboard">Downolad</a></li>
-                    <li><a href="#">About US</a></li>
-                  </ul>
-                </div>
-                <br>   
-
-                <div>
-                  <video autoplay muted loop id="myVideo2"  style="width:100%; height: 50%; ">
-                    <source src="{{ url_for('static', filename='moon.mp4') }}" type="video/mp4">
-                            Your browser does not support HTML5 video.
-                  </video>
-                </div>    
-                <p style="color: white; font-size: 20px; width:43%; float: right; transform: translateZ(50px);">"The only way to do great work is to love what you do." - Steve Jobs</p>
-              </div>
-        </nav>
-      </div>
-       
-        
-
-               
-
-
-
+    <div class="container text-center">
+        <div class="logo" style="padding: 30px">
+            <img src="static/images/LW1 (light).png" class="img-responsive" alt="LW LOGO" style="width: 500px; height: 270px; max-width: 600px; margin: 0 auto 40px;">
+        </div>
+        <p class="quote" style="font-size: 20px; text-align: center; margin-bottom: 50px;">"The only way to do great work is to love what you do." - Steve Jobs</p>
+        <div class="text-center" style="margin-bottom: 50px;">
+            <a href="/user_dashboard" class="btn btn-success btn-lg glow-button glow-button-download">Download your certificate</a>
+        </div>
+        <div class="buttons text-center">
+            <a href="/signup" class="btn btn-default btn-lg glow-button glow-button-signup" style="margin-right: 10px;">Sign Up</a>
+            <a href="/signin" class="btn btn-default btn-lg glow-button glow-button-login">Login</a>
+        </div>
+    </div>
 </body>
-
 </html>

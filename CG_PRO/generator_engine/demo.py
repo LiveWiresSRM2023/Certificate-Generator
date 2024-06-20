@@ -152,7 +152,7 @@ class gen_engine:
             font_path = os.path.join(FONTS_DIR, 'GreatVibes-Regular.ttf')
         self.font_path = font_path
         self.font_size = 180
-        self.font_color = "#FFFFFF"
+        self.font_color = "#000000"
 
         # Check if the font file exists
         if not os.path.exists(self.font_path):

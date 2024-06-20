@@ -4,41 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login-page</title>
-    <link rel="stylesheet" href="/static/css/login.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/447788c533.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        .fa-envelope {
-            color: white;
-          }
+        body {
+            background-color: #0F0E0E;
+            color: #ffffff;
+            background: url('static/images/2.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Jura', sans-serif;
+            font-weight: 400; /* Normal weight for body text */
+        }
+        .form-control , .form-control:focus {
+            border-radius: 0px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: #1A1919;
+            color: #ffffff;
+            border-color: #7BC74D;
+            font-family: 'Jura', sans-serif;
+            font-weight: 400; /* Normal weight for form controls */
+        }
+        .btn-signin, .btn-back-to-dashboard {
+            border-radius: 0px;
+            transition: box-shadow 0.3s all ease, background-color 0.3s ease, color 0.3s ease;
+            font-family: 'Jura', sans-serif;
+            font-weight: 700; /* Bold weight for buttons */
+        }
+        .input-group-text {
+            background-color: transparent;
+            border: none;
+        }
+        .btn-signin {
+            background-color: #7BC74D;
+            color: black;
+            border-color: #7BC74D;
+        }
+        .btn-back-to-dashboard {
+            background-color: #0F0E0E ;
+            color: #7BC74D;
+            border-color: #7BC74D;
+        }
+        .btn-signin:hover, .btn-back-to-dashboard:hover,  .btn-signin:focus, .btn-back-to-dashboard:focus {
+            background-color: #7BC74D;
+            color: #000000;
+            transition: all 0.3s ease;
+            font-size: 20px;
+            box-shadow: 0px 0px 10px 0px rgba(123, 199, 77, 0.8);
+        }
+        .card-body h1 {
+            font-weight: 700; /* Bold weight for heading */
+        }
     </style>
 </head>
-
 <body>
-    <div class="container">  
-        <video autoplay muted loop id="myVideo2"  style="width:100%; height: auto;">
-            <source src="{{ url_for('static', filename='particles.mp4') }}" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-        <div class ="form-box">
-            <h1>Sign In</h1>
-            <form action="/signin" method="POST" enctype="multipart/form-data">
-                <div class="input-group">                    
-                    <div class="input-email">
-                        <i class="fas fa-envelope" ></i>
-                        <input type="email" placeholder="email" name='email'>
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card p-4" style="width: 100%; max-width: 400px; background-color: #0F0E0E; border: 1px solid #7BC74D; border-radius: 0px; box-shadow: 0px 0px 30px 0px rgba(123, 199, 77, 0.8);">
+            <div class="card-body">
+                <h1 class="text-center mb-5" style="color: #7BC74D;">Sign In</h1>
+                <form action="/signin" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-envelope" style="color: #7BC74D;"></i></span>
+                            </div>
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                        </div>
                     </div>
-                    <div class="input-password">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="password" name='password'>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock" style="color: #7BC74D;"></i></span>
+                            </div>
+                            <input type="password" class="form-control" placeholder="Password" name="password">
+                        </div>
                     </div>
-                </div>
-                <div class="button-field">
-                    <h1><a href="http://127.0.0.1:5000/signup" >Sign Up</a> </h1>
-                    <button type="submit" >Sign In</button>
-                </div>
-            </form>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success btn-sm btn-block mb-4 btn-signin" style="border-radius: 0px; margin-top: 40px; padding-top: 10px; padding-bottom: 10px;">Sign In</button>
+                        <p class="mt-4 mb-0">
+                            Don't have an account? <a href="/signup" style="color: #7BC74D;">Sign Up</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="position-absolute" style="bottom: 20px; left: 20px;">
+            <a href="/home" class="btn btn-outline-success btn-sm btn-block btn-back-to-dashboard" style="border-color: #7BC74D; padding-top: 10px; padding-bottom: 10px;">Back to Dashboard</a>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
