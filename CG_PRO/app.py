@@ -23,6 +23,7 @@ connect.execute('CREATE TABLE IF NOT EXISTS ADMIN (email TEXT, passward TEXT)')
 OTP=""
 receiver_email=""
 user_name=""
+error=''
 
 eve=[]
 prog=[]
@@ -105,7 +106,7 @@ def upload_template():
             os.remove(temp_file.name)
             print(f"Temporary file deleted: {temp_file.name}")
 
-        return "Successfully uploaded"
+        return render_template('successmessage.html')
 
     except Exception as e:
         print("Error during upload:", e)
@@ -139,6 +140,12 @@ def signin():
                     return True
             else:
                 return False
+        def check_email_presence(data_):
+            for i in data_:
+                if (i[1]==email) :
+                    return True
+            else:
+                return False
         if check_email(data_):
             global eve,prog, name_list
             data=retrive_data(email)
@@ -152,8 +159,11 @@ def signin():
             engine = gen_engine()
             engine.generate(names=name,cultural_names=program,event_names=events)        
             return render_template("user_dashboard.html",data=data)
-        else:
+        elif check_email_presence(data_):
             return "Please, Check your email and password!"
+        
+        else:
+            return render_template('errormessage.html',data="Please Sign-Up") 
     else:
         return render_template('signin.html')
         
@@ -230,7 +240,7 @@ def upload():
         db_name_list.append(table_name)
         conn.commit()
         conn.close()
-        return "Successfuly uploaded the file"
+        return render_template('successmessage.html')
     return "Error occurred while uploading file."
 
 
