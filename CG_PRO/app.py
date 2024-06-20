@@ -111,6 +111,11 @@ def upload_template():
         print("Error during upload:", e)
         return f"An error occurred during upload: {e}", 500
 
+@app.route('/errormessage',methods=['POST','GET'])
+def errormsg():
+    global error
+    if request.method=='POST':
+        return render_template("errormessage.html",data= error)
 
 @app.route('/signin',methods=["POST",'GET']) 
 def signin():
