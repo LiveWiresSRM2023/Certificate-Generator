@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OTP Successful</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jura&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            background: url('static/images/2.png') no-repeat center center fixed;
+            background-size: cover;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Jura', Arial, sans-serif;
+            background-color: #0F0E0E;
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            background-color: #0F0E0E;
+            padding: 30px;
+            border: 1px solid #7BC74D;
+            border-radius: 0px;
+            box-shadow: 0px 0px 30px 0px rgba(123, 199, 77, 0.8);
+            width: 380px;
+            max-width: 80%;
+            position: relative; /* Ensure relative positioning for absolute elements */
+        }
+        .checkmark {
+            color: #7BC74D;
+            font-size: 60px;
+            position: absolute;
+            top: 85px; /* Adjust top position to align with the top padding of the container */
+            left: 50%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust for center alignment */
+        }
+        .checkmark::before {
+            content: "\2714"; /* Unicode character for checkmark */
+            font-size: 70px;
+        }
+        h2 {
+            color: #7BC74D;
+            margin-top: 20px; /* Add space between icon and heading */
+            font-weight: bold;
+            margin-bottom: 110px;
+        }
+        p {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #7BC74D;
+            color: #0F0E0E;
+            border: none;
+            font-family: 'Jura', Arial, sans-serif;
+            border-radius:1px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease; /* Smooth transition for all properties */
+        }
+        button:hover , button:focus {
+            background-color: ##7BC74D;
+            font-size: 20px;
+            box-shadow: 0px 0px 30px 0px rgba(123, 199, 77, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="checkmark"></span>
+        <h2>Upload Successful!</h2>
+        <form action="/signin" method="GET" style="display: inline;">
+            <button type="submit">Back to Sign In</button>
+        </form>
+    </div>
+</body>
+</html>
