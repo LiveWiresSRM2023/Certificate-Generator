@@ -57,6 +57,13 @@
         .card-body h1 {
             font-weight: 700; /* Bold weight for heading */
         }
+        .btn-back-to-dashboard {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -90,9 +97,7 @@
                 </form>
             </div>
         </div>
-        <div class="position-absolute" style="bottom: 550px; left: 20px;">
-            <a href="/home" class="btn btn-outline-success btn-sm btn-block btn-back-to-dashboard" style="border-color: #7BC74D; padding-top: 10px; padding-bottom: 10px;">Back to Dashboard</a>
-        </div>
+        <a href="/home" class="btn btn-outline-success btn-sm btn-back-to-dashboard">Back to Dashboard</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

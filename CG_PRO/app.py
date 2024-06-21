@@ -10,9 +10,19 @@ import tempfile
 from io import BytesIO
 import generator_engine.demo as demo
 from generator_engine.fb_access import db, bucket
+from dotenv import load_dotenv
+
+
+
+
+load_dotenv()
+
+sender_email=os.getenv("SENDER_EMAIL")
+sender_password=os.getenv("PASSWORD")
+admin_email=os.getenv("ADMIN_EMAIL")
+
 
 app = Flask(__name__) 
-
 
 #SQLlite init
 connect = sqlite3.connect('database.db')
@@ -125,7 +135,7 @@ def signin():
         email=request.form['email']
         password=request.form['password']
         
-        admin=['ds1083@srmist.edu.in','vs33@srmist.edu.in']
+        admin=admin_email
         if email in admin:
             
             return render_template('admin.html')
@@ -160,7 +170,7 @@ def signin():
             engine.generate(names=name,cultural_names=program,event_names=events)        
             return render_template("user_dashboard.html",data=data)
         elif check_email_presence(data_):
-            return "Please, Check your email and password!"
+            return render_template("errormessage.html",data="Please, Check your email and password!")
         
         else:
             return render_template('errormessage.html',data="Please Sign-Up") 
@@ -250,9 +260,11 @@ def otp_generator():
     #setting up server
     server = smtplib.SMTP('smtp.gmail.com',587)
     #server = smtplib.SMTP('64.233.184.108',587) #IP address of smtp.gmail.com to bypass DNS resolution
-    server.starttls()
-    global receiver_email
+    server.starttls()    
+    global receiver_email   
     global user_name
+    global sender_email
+    global sender_password
     name=user_name
     def email_verification(receiver_email):
         email_check1 = ["gmail","hotmail","yahoo","outlook"]
@@ -274,23 +286,21 @@ def otp_generator():
         return receiver_email
 
     valid_receiver_email = email_verification(receiver_email)
-    password = "stqqwjqoocucknsx"
-    server.login("priyanshu25122002@gmail.com",password)
+    server.login(sender_email,sender_password)
 
 
     body = "dear"+name+","+"\n"+"\n"+"your OTP is "+str(OTP)+"."
-    subject = "OTP verification using python"
+    subject = "OTP verification for E-Certificate from LiveWires"
     message = f'subject:{subject}\n\n{body}'
 
-    server.sendmail("priyanshu25122002@gmail.com",valid_receiver_email,message)
+    server.sendmail(sender_email,valid_receiver_email,message)
 
     def sending_otp(receiver_email):
         new_otp = random.randint(100000,999999)
 
         body = "Dear "+'\t'+name+","+"\n"+"\n"+" your OTP is "+str(new_otp)+"\n"+"Thanks for your SignUp."
-        subject = "OTP verification for SRM institute of arts and Science" 
         message = f'subject:{subject}\n\n{body}'
-        server.sendmail("priyanshu25122002@gmail.com",receiver_email,message)
+        server.sendmail(sender_email,receiver_email,message)
         print("OTP has been sent to"+receiver_email)
         
 

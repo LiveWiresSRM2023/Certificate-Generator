@@ -21,9 +21,9 @@
             text-align: center;
             background-color: #0F0E0E;
             padding: 30px;
-            border: 1px solid #7BC74D;
+            border: 1px solid red;
             border-radius: 0px;
-            box-shadow: 0px 0px 30px 0px rgba(123, 199, 77, 0.8);
+            box-shadow: 0px 0px 30px 0px red;
             width: 380px;
             max-width: 80%;
             position: relative; /* Ensure relative positioning for absolute elements */
@@ -40,8 +40,8 @@
             content: "\2714"; /* Unicode character for checkmark */
             font-size: 70px;
         }
-        h2 {
-            color: #7BC74D;
+        h1,h2 {
+            color: white;
             margin-top: 20px; /* Add space between icon and heading */
             font-weight: bold;
             margin-bottom: 110px;
@@ -74,8 +74,8 @@
 <body>
     <div class="container">
        
-        <h2>Oops!</h2>
-        <h2>{{data}}</h2>
+        <h1 style="font-size:50px;color: red ">Oops!</h1>
+        <h2 style="font-size:20px">{{data}}</h2>
         <form action="/signin" method="GET" style="display: inline;">
             <button type="submit">Back to Sign In</button>
         </form>
