@@ -7,51 +7,42 @@ Certificate Generator is a web application built using Flask for generating and 
 The project folder structure is organized as follows:
 
 Certificate-Generator/
-│
-├── CG_PRO/
 
-    │ ├── generator_engine/
+    ├── CG_PRO/
 
-        │ │ ├── app.py
-        
-        │ │ ├── demo.py
-
-        │ │ ├── fb_access.py
-
-        │ │ ├── fonts/
-
-            │ │ │ └── MontserratBold-p781R.otf
-
-        │ │ └── serviceKey.json
-
-        │ ├── static/
-
-            │ │ ├── css/
-            
-                │ │ │ └── style.css
-                
-            │ │ └── js/
-            
-                │ │ └── script.js
-
-        │ ├── templates/
-            │ │ ├── admin.html
-            │ │ ├── errormessage.html
-            │ │ ├── index.html
-            │ │ ├── otp.html
-            │ │ ├── otpsuccess.html
-            │ │ ├── signin.html
-            │ │ ├── signup.html
-            │ │ └── successmessage.html
-
-│ └── database.db
-├── .env
-├── README.md
-└── requirements.txt
+        │ ├── generator_engine/
+    
+            │ │ ├── app.py
+            │ │ ├── demo.py
+            │ │ ├── fb_access.py
+            │ │ └── serviceKey.json
+    
+            │ │ ├── fonts/
+                │ │ │ └── MontserratBold-p781R.otf
+            │ ├── static/
+                │ │ ├── css/
+                    │ │ │ └── style.css
+                │ │ └── js/
+                    │ │ └── script.js
+    
+            │ ├── templates/
+                │ │ ├── admin.html
+                │ │ ├── errormessage.html
+                │ │ ├── index.html
+                │ │ ├── otp.html
+                │ │ ├── otpsuccess.html
+                │ │ ├── signin.html
+                │ │ ├── signup.html
+                │ │ └── successmessage.html
+    
+    │ └── database.db
+    ├── .env
+    ├── README.md
+    └── requirements.txt
 
 ## Folder Descriptions:
 
-    CG_PRO/: Main project directory.
+    -- CG_PRO/: Main project directory.
 
     --> generator_engine/: Contains backend logic and Firebase integration.
     --> app.py: Flask application setup and routes.
