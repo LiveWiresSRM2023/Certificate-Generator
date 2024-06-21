@@ -1,18 +1,23 @@
 import os
-import sys
-import pandas as pd
 from PIL import Image, ImageDraw, ImageFont
 import requests
 from io import BytesIO
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
 
 # Use environment variables for sensitive data and configurations
-FONTS_DIR = os.getenv('FONTS_DIR', 'generator_engine/fonts')
-FIREBASE_CREDENTIALS = os.getenv('FIREBASE_CREDENTIALS', 'path_to_firebase_credentials.json')
+FONT_FILE_PATH = os.getenv('FONT_FILE_PATH')
+SERVICE_KEY_PATH = os.getenv('SERVICE_KEY_PATH')
 
-# Add the project directory to the sys.path for module imports
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+# Ensure environment variables are loaded
+if not FONT_FILE_PATH:
+    raise EnvironmentError("FONT_FILE_PATH is not set in the environment variables.")
+if not SERVICE_KEY_PATH:
+    raise EnvironmentError("SERVICE_KEY_PATH is not set in the environment variables.")
 
-from generator_engine.fb_access import db
+from fb_access import db
 
 class RetrieveTemplate:
     def __init__(self):
@@ -40,7 +45,7 @@ class RetrieveTemplate:
 class gen_engine:
     def __init__(self, font_path=None):
         if font_path is None:
-            font_path = os.path.join(FONTS_DIR, 'MontserratBold-p781R.otf')
+            font_path = FONT_FILE_PATH
         self.font_path = font_path
         self.font_size = 80
         self.font_color = "#000000"
@@ -93,3 +98,16 @@ class gen_engine:
                 print(f"Error generating certificate for {names[i]}: {e}")
 
         return certificates  # Return the list of certificate image data
+
+if __name__ == "__main__":
+    # Example usage
+    names = ["Alice", "Bob"]
+    cultural_names = ["CultureA", "CultureB"]
+    event_names = ["EventA", "EventB"]
+
+    try:
+        engine = gen_engine()
+        certificates = engine.generate(names, cultural_names, event_names)
+        # Further processing of certificates
+    except Exception as e:
+        print(f"An error occurred: {e}")

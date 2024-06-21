@@ -1,12 +1,19 @@
-#
-import firebase_admin
-from firebase_admin import credentials, firestore, storage
+import os
+from dotenv import load_dotenv
+from firebase_admin import credentials, firestore, storage, initialize_app
+
+load_dotenv()
+
+# get the service key  from the environ variables
+
+service_key_path = os.getenv("SERVICE_KEY_PATH")
+if not service_key_path:
+    raise EnvironmentError("SERVICE KEY PATH IS NOT SENT IN THE ENVIRONMENT VARIABLE IN FB ACCESS")
 
 # Initialize the Firebase app
+cred = credentials.Certificate(service_key_path)
 
-cred = credentials.Certificate('..\\CG_PRO\\generator_engine\\serviceKey.json')
-
-firebase_app = firebase_admin.initialize_app(cred, {
+firebase_app = initialize_app(cred, {
     'storageBucket': 'certificate-generator-bd0ba.appspot.com'
 })
 

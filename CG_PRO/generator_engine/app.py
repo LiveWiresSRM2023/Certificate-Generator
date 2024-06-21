@@ -5,16 +5,16 @@ import os
 from datetime import datetime
 import sqlite3
 import pandas as pd
-from generator_engine.demo import gen_engine
+from demo import gen_engine
 import tempfile
 from io import BytesIO
-import generator_engine.demo as demo
-from generator_engine.fb_access import db, bucket
+import demo as demo
+from fb_access import db, bucket
 from dotenv import load_dotenv
 
 
 
-
+# loading the environment variables
 load_dotenv()
 
 sender_email=os.getenv("SENDER_EMAIL")
