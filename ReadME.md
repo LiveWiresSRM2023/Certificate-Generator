@@ -9,27 +9,41 @@ The project folder structure is organized as follows:
 Certificate-Generator/
 │
 ├── CG_PRO/
-│ ├── generator_engine/
-│ │ ├── app.py
-│ │ ├── demo.py
-│ │ ├── fb_access.py
-│ │ ├── fonts/
-│ │ │ └── MontserratBold-p781R.otf
-│ │ └── serviceKey.json
-│ ├── static/
-│ │ ├── css/
-│ │ │ └── style.css
-│ │ └── js/
-│ │ └── script.js
-│ ├── templates/
-│ │ ├── admin.html
-│ │ ├── errormessage.html
-│ │ ├── index.html
-│ │ ├── otp.html
-│ │ ├── otpsuccess.html
-│ │ ├── signin.html
-│ │ ├── signup.html
-│ │ └── successmessage.html
+
+    │ ├── generator_engine/
+
+        │ │ ├── app.py
+        
+        │ │ ├── demo.py
+
+        │ │ ├── fb_access.py
+
+        │ │ ├── fonts/
+
+            │ │ │ └── MontserratBold-p781R.otf
+
+        │ │ └── serviceKey.json
+
+        │ ├── static/
+
+            │ │ ├── css/
+            
+                │ │ │ └── style.css
+                
+            │ │ └── js/
+            
+                │ │ └── script.js
+
+        │ ├── templates/
+            │ │ ├── admin.html
+            │ │ ├── errormessage.html
+            │ │ ├── index.html
+            │ │ ├── otp.html
+            │ │ ├── otpsuccess.html
+            │ │ ├── signin.html
+            │ │ ├── signup.html
+            │ │ └── successmessage.html
+
 │ └── database.db
 ├── .env
 ├── README.md
