@@ -8,53 +8,42 @@ The project folder structure is organized as follows:
 
 Certificate-Generator/
 
-    ├── CG_PRO/
 
-        │ ├── generator_engine/
     
-            │ │ ├── app.py
-            │ │ ├── demo.py
-            │ │ ├── fb_access.py
-            │ │ └── serviceKey.json
-    
-            │ │ ├── fonts/
-                │ │ │ └── MontserratBold-p781R.otf
-            │ ├── static/
-                │ │ ├── css/
-                    │ │ │ └── style.css
-                │ │ └── js/
-                    │ │ └── script.js
-    
-            │ ├── templates/
-                │ │ ├── admin.html
-                │ │ ├── errormessage.html
-                │ │ ├── index.html
-                │ │ ├── otp.html
-                │ │ ├── otpsuccess.html
-                │ │ ├── signin.html
-                │ │ ├── signup.html
-                │ │ └── successmessage.html
-    
-    │ └── database.db
-    ├── .env
-    ├── README.md
-    └── requirements.txt
+├── app.py
+├── demo.py
+├── fb_access.py
+├── fonts/
+    └── MontserratBold-p781R.otf
+├── static/
+├── css/
+    │ └── admin.css
+    │ └── index.css
+    │ └── login.css
+    │ └── user_dashboard.css
+├── templates/
+    ├── admin.html
+    ├── errormessage.html
+    ├── index.html
+    ├── otp.html
+    ├── otpsuccess.html
+    ├── signin.html
+    ├── signup.html
+    └── successmessage.html
+└── database.db
+├── README.md
+└── requirements.txt
 
 ## Folder Descriptions:
 
-    -- CG_PRO/: Main project directory.
 
-    --> generator_engine/: Contains backend logic and Firebase integration.
     --> app.py: Flask application setup and routes.
     --> demo.py: Module for certificate generation logic.
     --> fb_access.py: Firebase access setup.
     --> fonts/: Directory for custom fonts used in certificates.
-    --> serviceKey.json: Firebase service key for authentication.
-    --> static/: Static assets (CSS, JS) used in the web application.
+    --> static/: Static assets (CSS) used in the web application.
     --> templates/: HTML templates used to render web pages.
     --> database.db: SQLite database file for storing user and event data.
-    --> .env: Configuration file for environment variables (e.g., Firebase credentials).
-
     --> README.md: This file, providing an overview of the project.
 
 ## Features:
