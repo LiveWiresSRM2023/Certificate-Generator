@@ -289,7 +289,7 @@ def otp_generator():
     server.login(sender_email,sender_password)
 
 
-    body = "dear"+name+","+"\n"+"\n"+"your OTP is "+str(OTP)+"."
+    body = "Dear "+name+","+"\n"+"\n"+"your OTP is "+str(OTP)+"."
     subject = "OTP verification for E-Certificate from LiveWires"
     message = f'subject:{subject}\n\n{body}'
 
