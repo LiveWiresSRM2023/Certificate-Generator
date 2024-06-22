@@ -8,8 +8,15 @@ import json
 # Load environment variables from the .env file
 load_dotenv()
 
+
+# Get the current directory of this script
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the font file relative to this script
+FONT_FILE_PATH = os.path.join(base_dir, 'fonts', 'GreatVibes-Regular.ttf')
+
 # Use environment variables for sensitive data and configurations
-FONT_FILE_PATH = os.getenv('FONT_FILE_PATH')
+# FONT_FILE_PATH = os.getenv('FONT_FILE_PATH')
 SERVICE_KEY_PATH = os.getenv('SERVICE_KEY_JSON')
 service_key_json = json.loads(SERVICE_KEY_PATH)
 
@@ -49,7 +56,7 @@ class gen_engine:
         if font_path is None:
             font_path = FONT_FILE_PATH
         self.font_path = font_path
-        self.font_size = 61
+        self.font_size = 85
         self.font_color = "#023047"
 
         # Check if the font file exists
@@ -82,7 +89,7 @@ class gen_engine:
                 width, height = template.size
                 text_length = draw.textlength(names[i], font=self.font)
                 start_x = (width - text_length) // 2
-                draw.text((start_x, (height - 251) // 2), names[i], fill=self.font_color, font=self.font)
+                draw.text((start_x, (height - 370) // 2), names[i], fill=self.font_color, font=self.font)
 
                 # Create a BytesIO object to store the certificate image in memory
                 buffer = BytesIO()
