@@ -76,3 +76,8 @@ Certificate-Generator/
     --> Certificate Generation: Dynamically generates certificates based on event and participant data.
     --> Firebase Integration: Stores certificate templates and manages file uploads.
     --> SQLite Database: Stores user data and event information.
+
+
+
+
+ ![BootCamp24_WebDev24_Mohammed Vaseem H (9)](https://github.com/LiveWiresSRM2023/Certificate-Generator/assets/143991442/19285408-cd0d-4d1b-9e67-8fef16c71b7c)
