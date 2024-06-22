@@ -3,13 +3,15 @@ from PIL import Image, ImageDraw, ImageFont
 import requests
 from io import BytesIO
 from dotenv import load_dotenv
+import json
 
 # Load environment variables from the .env file
 load_dotenv()
 
 # Use environment variables for sensitive data and configurations
 FONT_FILE_PATH = os.getenv('FONT_FILE_PATH')
-SERVICE_KEY_PATH = os.getenv('SERVICE_KEY_PATH')
+SERVICE_KEY_PATH = os.getenv('SERVICE_KEY_JSON')
+service_key_json = json.loads(SERVICE_KEY_PATH)
 
 # Ensure environment variables are loaded
 if not FONT_FILE_PATH:
@@ -47,8 +49,8 @@ class gen_engine:
         if font_path is None:
             font_path = FONT_FILE_PATH
         self.font_path = font_path
-        self.font_size = 80
-        self.font_color = "#000000"
+        self.font_size = 60
+        self.font_color = "#023047"
 
         # Check if the font file exists
         if not os.path.exists(self.font_path):
@@ -80,7 +82,7 @@ class gen_engine:
                 width, height = template.size
                 text_length = draw.textlength(names[i], font=self.font)
                 start_x = (width - text_length) // 2
-                draw.text((start_x, (height - 375) // 2), names[i], fill=self.font_color, font=self.font)
+                draw.text((start_x, (height - 250) // 2), names[i], fill=self.font_color, font=self.font)
 
                 # Create a BytesIO object to store the certificate image in memory
                 buffer = BytesIO()
