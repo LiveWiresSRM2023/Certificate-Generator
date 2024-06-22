@@ -10,29 +10,53 @@ Certificate-Generator/
 
 
     
-├── app.py
-├── demo.py
-├── fb_access.py
-├── fonts/
-    └── MontserratBold-p781R.otf
-├── static/
-├── css/
-    │ └── admin.css
-    │ └── index.css
-    │ └── login.css
-    │ └── user_dashboard.css
-├── templates/
-    ├── admin.html
-    ├── errormessage.html
-    ├── index.html
-    ├── otp.html
-    ├── otpsuccess.html
-    ├── signin.html
-    ├── signup.html
-    └── successmessage.html
-└── database.db
-├── README.md
-└── requirements.txt
+    ├── app.py
+    
+    ├── demo.py
+    
+    ├── fb_access.py
+    
+    ├── fonts/
+    
+        └── MontserratBold-p781R.otf
+        
+    ├── static/
+    
+    ├── css/
+    
+        │ └── admin.css
+        
+        │ └── index.css
+    
+        │ └── login.css
+        
+        │ └── user_dashboard.css
+        
+    ├── templates/
+    
+        ├── admin.html
+        
+        ├── errormessage.html
+        
+        ├── index.html
+        
+        ├── otp.html
+        
+        ├── otpsuccess.html
+        
+        ├── signin.html
+        
+        ├── signup.html
+        
+        └── successmessage.html
+    
+        
+    └── database.db
+    
+    ├── README.md
+    
+    └── requirements.txt
+
 
 ## Folder Descriptions:
 
