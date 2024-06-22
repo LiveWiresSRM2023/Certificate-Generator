@@ -49,7 +49,7 @@ class gen_engine:
         if font_path is None:
             font_path = FONT_FILE_PATH
         self.font_path = font_path
-        self.font_size = 60
+        self.font_size = 61
         self.font_color = "#023047"
 
         # Check if the font file exists
@@ -82,7 +82,7 @@ class gen_engine:
                 width, height = template.size
                 text_length = draw.textlength(names[i], font=self.font)
                 start_x = (width - text_length) // 2
-                draw.text((start_x, (height - 250) // 2), names[i], fill=self.font_color, font=self.font)
+                draw.text((start_x, (height - 251) // 2), names[i], fill=self.font_color, font=self.font)
 
                 # Create a BytesIO object to store the certificate image in memory
                 buffer = BytesIO()
