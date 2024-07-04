@@ -75,7 +75,7 @@ Certificate-Generator/
     --> User Management: Sign-up, sign-in, and user dashboard functionality.
     --> Certificate Generation: Dynamically generates certificates based on event and participant data.
     --> Firebase Integration: Stores certificate templates and manages file uploads.
-    --> SQLite Database: Stores user data and event information.
+    --> SQLite Database: Stores user data and event information
 
 
 
